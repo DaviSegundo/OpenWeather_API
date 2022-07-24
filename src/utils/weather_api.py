@@ -5,7 +5,7 @@ from dataclasses import dataclass
 class OpenWeatherAPI:
     """Class representing API consumption."""
 
-    api_key:str
+    api_key: str
     unit: str = 'metric'
     base_url: str = "https://api.openweathermap.org/data/2.5/weather"
 
