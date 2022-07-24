@@ -9,7 +9,7 @@ class TestProcessController(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        connect('mongoenginetest', host='mongomock://localhost')
+        connect('mongoenginetest', host='mongomock://localhost', uuidRepresentation='standard')
 
     @classmethod
     def tearDownClass(cls):

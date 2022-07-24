@@ -2,7 +2,7 @@ from flask import Response, json
 from flask_restx import Namespace, Resource
 from ..controllers.controller_process import ProcessController
 from ..responses.responser_process import ProcessResponser
-
+from broker.broker_commons import BrokerCommons
 
 api = Namespace('process', description='Weather related operations.')
 
@@ -11,6 +11,7 @@ post_parser.add_argument('user_id', type=int, required=True, location='json')
 
 process_controller = ProcessController()
 process_responser = ProcessResponser()
+
 
 @api.route('')
 class ProcessStarter(Resource):
@@ -26,6 +27,17 @@ class ProcessStarter(Resource):
         user_id = json_data.get('user_id')
 
         valid = process_controller.create_new_process(user_id)
+
+        if valid:
+            message1 = {
+                'valid': True,
+                'user_id': user_id
+            }
+            codec1 = json.dumps(message1)
+            broker_producer = BrokerCommons()
+            broker_producer.queue_declare('process')
+            broker_producer.send('process', codec1)
+            broker_producer.close_connection()
 
         message_response, status_code = process_responser.post(check=valid, user_id=user_id)
         

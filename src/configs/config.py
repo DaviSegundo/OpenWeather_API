@@ -14,3 +14,7 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 # Database Setup
 DATABASE_NAME = os.getenv("DATABASE_NAME", "test")
 DATABASE_URL_CONNECT = os.getenv("DATABASE_URL_CONNECT", f"mongodb://127.0.0.1:27017/{DATABASE_NAME}")
+
+# Broker Setup
+BROKER_HOST = os.getenv("BROKER_URL_CONNECT", "rabbitmq")
+BROKER_PORT = os.getenv("BROKER_PORT", "5672")
