@@ -3,6 +3,11 @@ from flask_restx import Namespace, Resource
 from ..controllers.controller_process import ProcessController
 from ..responses.responser_process import ProcessResponser
 
+from utils.weather_collector import WeatherCollector
+from utils.weather_api import OpenWeatherAPI
+from utils.data_formatter import DataFormatter
+from configs.config import OPENW_KEY, CITIES_IDS
+
 
 api = Namespace('process', description='Weather related operations.')
 
@@ -11,6 +16,11 @@ post_parser.add_argument('user_id', type=int, required=True, location='json')
 
 process_controller = ProcessController()
 process_responser = ProcessResponser()
+
+formatter = DataFormatter()
+
+weather_api = OpenWeatherAPI(OPENW_KEY)
+weather_collector = WeatherCollector(weather_api, formatter, CITIES_IDS)
 
 @api.route('')
 class ProcessStarter(Resource):
@@ -26,6 +36,9 @@ class ProcessStarter(Resource):
         user_id = json_data.get('user_id')
 
         valid = process_controller.create_new_process(user_id)
+
+        if valid:
+            weather_collector.collect_weather_data(user_id)
 
         message_response, status_code = process_responser.post(check=valid, user_id=user_id)
         
