@@ -3,7 +3,7 @@ version: '3'
 services:
 
   api:
-    image: openweatherapi:latest
+    image: davisegundo88/openweatherapi:latest
     container_name: openweatherapi
     depends_on:
       - mongo
