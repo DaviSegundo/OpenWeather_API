@@ -10,7 +10,7 @@ class BrokerCommons:
     port: str = BROKER_PORT
 
     def __post_init__(self):
-        self.connection = pika.BlockingConnection(pika.ConnectionParameters(host=self.host, port=self.port))
+        self.connection = pika.BlockingConnection(pika.ConnectionParameters(host=self.host, port=self.port, heartbeat=600))
     
     def queue_declare(self, queue: str):
         self.channel = self.connection.channel()

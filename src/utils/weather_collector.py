@@ -22,7 +22,7 @@ class WeatherCollector:
         data = Process.objects(user_id=user_id).first()
         data_list = data.data
         
-        for city_id in self.cities_list[:40]: # Remove limitation
+        for city_id in self.cities_list: # Remove limitation
             status_code, json_body = self.api.get_city_weather_information_by_id(city_id)
             while status_code != 200:
                 status_code, json_body = self.api.get_city_weather_information_by_id(city_id)
