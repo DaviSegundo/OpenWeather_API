@@ -45,7 +45,7 @@ docker compose -f "docker-compose.yml" up -d --build
 #### Second step:
 After the previous services have started, it is now possible to allocate workers. Use the following in the terminal to allocate 1 worker. For each new instance it is possible to use a new terminal.
 ```sh
-docker run -it --network=host davisegundo88/workerweather:main -h 127.0.0.1
+docker run -it --network=host davisegundo88/workerweather:latest -h 127.0.0.1
 ```
 <p align='center'>
     <img src='./docs/worker_terminal.png'>
