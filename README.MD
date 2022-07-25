@@ -28,6 +28,8 @@ The choice to implement a broker in the project was due to the need for the requ
 ## Docker Installation
 The idea of the project is to have the entire application in containers, so the services were placed in containers using Docker and a structure was prepared for their execution. Compose build and run files are available in the project.
 
+
+
 ### How to run
 To run the project, follow the instructions below. It is worth remembering that due to the nature of the project, the API, database and broker services were allocated in docker-compose for easier startup. As we can have several workers, its execution command can be used to start new instances if necessary.
 
@@ -36,9 +38,25 @@ Access the directory where the docker-compose file is and run the following comm
 ```sh
 docker compose -f "docker-compose.yml" up -d --build
 ```
+<p align='center'>
+    <img src='./docs/docker_env.png'>
+</p>
 
 #### Second step:
 After the previous services have started, it is now possible to allocate workers. Use the following in the terminal to allocate 1 worker. For each new instance it is possible to use a new terminal.
 ```sh
-docker run -it --network=host davisegundo88/workerweather:latest -h 127.0.0.1
+docker run -it --network=host davisegundo88/workerweather:main -h 127.0.0.1
 ```
+<p align='center'>
+    <img src='./docs/worker_terminal.png'>
+</p>
+
+#### Third step:
+With all the services started, it is now possible to use all the features of the application. To access the API, go to **localhost:5000**, where you will find the Swagger interface and from there just perform the POST with a user identifier and monitor the data collection process through the GET route.
+
+<p align='center'>
+    <img src='./docs/request_success.png'>
+</p>
+<p align='center'>
+    <img src='./docs/request_get_success.png'>
+</p>
