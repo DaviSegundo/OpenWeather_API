@@ -45,7 +45,7 @@ docker compose -f "docker-compose.yml" up -d --build
 #### Second step:
 After the previous services have started, it is now possible to allocate workers. Use the following in the terminal to allocate 1 worker. For each new instance it is possible to use a new terminal.
 ```sh
-docker run -it --network=host davisegundo88/workerweather:main -h 127.0.0.1
+docker run -it --network=host davisegundo88/workerweather:latest -h 127.0.0.1
 ```
 <p align='center'>
     <img src='./docs/worker_terminal.png'>
@@ -60,3 +60,47 @@ With all the services started, it is now possible to use all the features of the
 <p align='center'>
     <img src='./docs/request_get_success.png'>
 </p>
+
+
+## Pipeline
+A CI/CD pipeline was built to maintain control over the project in an automated way. For this, **GitHub Actions** was used, which is being used to build the application, run the tests and push the containers to DockerHub. In the following image, you can better see how the pipeline is structured.
+<p align='center'>
+    <img src='./docs/pipeline.png'>
+</p>
+
+## Tests
+The tests are already running in the pipeline automatically, but in case you want to perform them locally, follow the instructions below:
+
+Install project dependencies:
+```sh
+pip install -r requirements.txt
+```
+Access the directory where the project code is located:
+```sh
+cd src
+```
+You can use both commands below to run the tests, but using the coverage lib, it is possible to have a report about the code coverage:
+```sh
+python -m unittest discover
+```
+```sh
+coverage run -m unittest discover
+```
+<p align='center'>
+    <img src='./docs/test_local.png'>
+</p>
+To see the test coverage report you can use the following command:
+```sh
+coverage report
+```
+<p align='center'>
+    <img src='./docs/test_report.png'>
+</p>
+
+## Authors
+
+Davi Segundo Pinheiro – davisp2009@hotmail.com
+
+You can find me here at: 
+Github - [Davi S.P](https://github.com/DaviSegundo)
+LinkedIn - [Davi Segundo](https://www.linkedin.com/in/davi-segundo-881401210/)
